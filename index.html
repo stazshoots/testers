@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shootappz Testers</title>
+<meta name="description" content="Help test Splitz, Multicam and Rangepad, Android apps for practical shooters.">
+<meta property="og:title" content="Help test Shootappz apps">
+<meta property="og:description" content="Three Android apps for practical shooters. Join the test in two minutes.">
+<meta property="og:image" content="https://stazshoots.github.io/testers/img/splitz.png">
+<meta name="theme-color" content="#1c1c1e">
+<link rel="icon" href="img/splitz.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-top: #343436;
+    --bg-bottom: #121212;
+    --card: #262628;
+    --card-line: #3a3a3d;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    --orange: #f28c1e;
+    --orange-dark: #d97706;
+    --green: #34c759;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(var(--bg-top), var(--bg-bottom) 520px) var(--bg-bottom);
+    color: var(--text);
+    font: 16px/1.5 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 40px 16px 56px; }
+  a { color: var(--orange); }
+
+  .hero { text-align: center; margin-bottom: 36px; }
+  .hero-icons { display: flex; justify-content: center; gap: 12px; margin-bottom: 22px; }
+  .hero-icons img { width: 64px; height: 64px; border-radius: 16px; box-shadow: 0 6px 20px rgba(0,0,0,.45); }
+  h1 { font-size: 34px; line-height: 1.15; font-weight: 800; margin: 0 0 12px; letter-spacing: -.5px; }
+  .lead { color: var(--muted); font-size: 17px; margin: 0 auto; max-width: 480px; }
+  .lead strong { color: var(--text); font-weight: 600; }
+
+  .step {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 18px;
+    padding: 20px 20px 22px;
+    margin-bottom: 16px;
+    transition: border-color .2s, opacity .2s;
+  }
+  .step-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .num {
+    flex: none;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--orange); color: #1a1a1a; font-weight: 800; font-size: 16px;
+  }
+  .step.done .num { background: var(--green); color: #fff; font-size: 0; }
+  .step.done .num::after { content: "✓"; font-size: 17px; }
+  h2 { font-size: 20px; margin: 0; font-weight: 700; }
+  .step p { color: var(--muted); margin: 0 0 16px; }
+
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; min-height: 52px; padding: 12px 18px;
+    border-radius: 14px; border: 0;
+    background: var(--orange); color: #1a1a1a;
+    font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1.2; text-decoration: none;
+    cursor: pointer;
+  }
+  .btn:hover { background: #ff9d33; }
+  .btn:active { background: var(--orange-dark); }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--card-line); min-height: 44px; font-size: 15px; }
+  .btn.ghost:hover { background: #2f2f32; }
+  .step.done .btn:not(.ghost) { background: #3a3a3d; color: var(--text); }
+
+  .apps { display: grid; gap: 12px; }
+  .app {
+    background: #1e1e20;
+    border: 1px solid var(--card-line);
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .app-top { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+  .app img { flex: none; width: 56px; height: 56px; border-radius: 13px; }
+  .app h3 { margin: 0; font-size: 17px; font-weight: 700; }
+  .app .tag { margin: 2px 0 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+  .app-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .app-btns .btn { min-height: 44px; font-size: 15px; }
+  .app.joined .app-btns .btn:first-child { background: #3a3a3d; color: var(--text); }
+  .app.joined h3::after { content: " ✓"; color: var(--green); }
+
+  .note {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: rgba(242,140,30,.1); border: 1px solid rgba(242,140,30,.35);
+    border-radius: 12px; padding: 12px 14px; color: var(--text); font-size: 15px;
+  }
+  .step .note { margin: 0; }
+  .note b { color: var(--orange); }
+
+  .faq { margin-top: 36px; }
+  .faq h2 { margin-bottom: 12px; }
+  details {
+    border-top: 1px solid var(--card-line);
+    padding: 14px 2px;
+  }
+  details:last-of-type { border-bottom: 1px solid var(--card-line); }
+  summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--orange); font-size: 20px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { color: var(--muted); margin: 10px 0 0; }
+
+  footer { margin-top: 40px; text-align: center; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 380px) {
+    h1 { font-size: 28px; }
+    .app-btns { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header class="hero">
+    <div class="hero-icons">
+      <img src="img/splitz.png" alt="">
+      <img src="img/multicam.png" alt="">
+      <img src="img/rangepad.png" alt="">
+    </div>
+    <h1>Help test apps made for shooters</h1>
+    <p class="lead">Three free Android apps for IPSC, USPSA and steel. Google needs <strong>12 testers for 14 days</strong> before they can go public. It takes two minutes. Thank you!</p>
+  </header>
+
+  <section class="step" id="step1">
+    <div class="step-head"><span class="num">1</span><h2>Join the testers group</h2></div>
+    <p>Sign in with the Google account you use on your Android phone, then tap <b>Join group</b>. Come back to this page after.</p>
+    <a class="btn" id="join" href="https://groups.google.com/g/shootappz-testers" target="_blank" rel="noopener">Open the group</a>
+  </section>
+
+  <section class="step" id="step2">
+    <div class="step-head"><span class="num">2</span><h2>Become a tester and install</h2></div>
+    <p>For each app: tap <b>Become a tester</b>, accept, then install it from Google Play. Try one, two or all three.</p>
+    <div class="apps">
+      <article class="app" data-app="splitz">
+        <div class="app-top">
+          <img src="img/splitz.png" alt="">
+          <div><h3>Splitz</h3><p class="tag">Finds the beep and every shot in your video: first shot, splits and time, burned into the video.</p></div>
+        </div>
+        <div class="app-btns">
+          <a class="btn" href="https://play.google.com/apps/testing/com.shootappz.splitz" target="_blank" rel="noopener">Become a tester</a>
+          <a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.shootappz.splitz" target="_blank" rel="noopener">Install</a>
+        </div>
+      </article>
+      <article class="app" data-app="multicam">
+        <div class="app-top">
+          <img src="img/multicam.png" alt="">
+          <div><h3>Multicam</h3><p class="tag">Syncs your head cam and a friend's video on the timer beep. One clip, up to 4 views.</p></div>
+        </div>
+        <div class="app-btns">
+          <a class="btn" href="https://play.google.com/apps/testing/com.shootappz.multicam" target="_blank" rel="noopener">Become a tester</a>
+          <a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.shootappz.multicam" target="_blank" rel="noopener">Install</a>
+        </div>
+      </article>
+      <article class="app" data-app="rangepad">
+        <div class="app-top">
+          <img src="img/rangepad.png" alt="">
+          <div><h3>Rangepad</h3><p class="tag">A scorebook for practice and club matches: tap the hits, get points and hit factor right away.</p></div>
+        </div>
+        <div class="app-btns">
+          <a class="btn" href="https://play.google.com/apps/testing/com.shootappz.rangepad" target="_blank" rel="noopener">Become a tester</a>
+          <a class="btn ghost" href="https://play.google.com/store/apps/details?id=com.shootappz.rangepad" target="_blank" rel="noopener">Install</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="step" id="step3">
+    <div class="step-head"><span class="num">3</span><h2>Keep the apps for 14 days</h2></div>
+    <p class="note"><span>⏱</span><span>Please <b>don't uninstall</b> and don't leave the test for 14 days. Open the apps now and then, and tell me what you think.</span></p>
+  </section>
+
+  <section class="faq">
+    <h2>Questions</h2>
+    <details>
+      <summary>The link says the app isn't available</summary>
+      <p>Joining the group can take a few minutes to reach Google Play. Wait 10 minutes and try again. Make sure Play on your phone uses the same Google account you joined the group with.</p>
+    </details>
+    <details>
+      <summary>I have an iPhone</summary>
+      <p>Sorry, these apps are Android only for now.</p>
+    </details>
+    <details>
+      <summary>Do the apps cost anything or collect my data?</summary>
+      <p>They are free, with no ads and no accounts. None of them use the internet: your videos, scores and times stay on your phone.</p>
+    </details>
+    <details>
+      <summary>How do I send feedback or report a bug?</summary>
+      <p>Email <a href="mailto:shootappz@gmail.com">shootappz@gmail.com</a>, or leave private feedback on the app's page in Google Play.</p>
+    </details>
+    <details>
+      <summary>How do I stop testing?</summary>
+      <p>Open the Become a tester link again and tap Leave the program. Please wait until the 14 days are over if you can.</p>
+    </details>
+  </section>
+
+  <footer>Shootappz · <a href="mailto:shootappz@gmail.com">shootappz@gmail.com</a></footer>
+</main>
+
+<script>
+  // Remembers on this device which steps the visitor has started, so the page shows progress when they come back.
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  function refresh() {
+    step1.classList.toggle('done', store.get('joined') === '1');
+    let any = false;
+    document.querySelectorAll('.app').forEach(app => {
+      const on = store.get('app-' + app.dataset.app) === '1';
+      app.classList.toggle('joined', on);
+      any = any || on;
+    });
+    step2.classList.toggle('done', any);
+  }
+  document.getElementById('join').addEventListener('click', () => { store.set('joined', '1'); setTimeout(refresh, 300); });
+  document.querySelectorAll('.app').forEach(app => {
+    app.querySelector('.btn').addEventListener('click', () => { store.set('app-' + app.dataset.app, '1'); setTimeout(refresh, 300); });
+  });
+  refresh();
+</script>
+</body>
+</html>
